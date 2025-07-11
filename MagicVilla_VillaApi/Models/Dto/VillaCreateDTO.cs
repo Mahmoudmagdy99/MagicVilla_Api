@@ -2,10 +2,8 @@
 
 namespace MagicVilla_VillaApi.Models.Dto
 {
-    //Data Transfer Object (DTO) ===> This gives you separation of concerns.
-    public class VillaDTO
+    public class VillaCreateDTO
     {
-        public int Id { get; set; }
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }
