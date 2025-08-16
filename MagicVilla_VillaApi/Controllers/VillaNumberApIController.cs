@@ -36,7 +36,7 @@ namespace MagicVilla_VillaApi.Controllers
         {
             try
             {
-                IEnumerable<VillaNumber> villaNumberList = await _dbVillaNumber.GetAllAsync();
+                IEnumerable<VillaNumber> villaNumberList = await _dbVillaNumber.GetAllAsync(includeProperties:"Villa");
                 _response.Result = _mapper.Map<List<VillaNumberDTO>>(villaNumberList);
                 _response.StatusCode = HttpStatusCode.OK;
                 return Ok(_response);
@@ -44,7 +44,7 @@ namespace MagicVilla_VillaApi.Controllers
             catch(Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessage = new List<string> { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             return _response; // Return the response with error details
         }
@@ -77,7 +77,7 @@ namespace MagicVilla_VillaApi.Controllers
             catch (Exception ex) 
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessage = new List<string> { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             return _response; // Return the response with error details
         }
@@ -95,7 +95,7 @@ namespace MagicVilla_VillaApi.Controllers
             {
                 if(await _dbVillaNumber.GetAsync(u=>u.VillaNo == createDTO.VillaNo) != null)
                 {
-                    ModelState.AddModelError("CustomError", "Villa Number already Exists!");
+                    ModelState.AddModelError("ErrorMessages", "Villa Number already Exists!");
                     return BadRequest(ModelState);
                 }
                 if(createDTO == null)
@@ -104,7 +104,7 @@ namespace MagicVilla_VillaApi.Controllers
                 }
                 if(await _dbVilla.GetAsync(u=> u.Id == createDTO.VillaID) == null)
                 {
-                    ModelState.AddModelError("CustomError", "Villa ID does not exist!");
+                    ModelState.AddModelError("ErrorMessages", "Villa ID does not exist!");
                     return BadRequest(ModelState);
                 }
                 VillaNumber villaNumber = _mapper.Map<VillaNumber>(createDTO);
@@ -117,7 +117,7 @@ namespace MagicVilla_VillaApi.Controllers
             catch(Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessage = new List<string> { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             return _response; // Return the response with error details
         }
@@ -148,7 +148,7 @@ namespace MagicVilla_VillaApi.Controllers
             catch(Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessage = new List<string> { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             return _response;
         }
@@ -167,7 +167,7 @@ namespace MagicVilla_VillaApi.Controllers
                 }
                 if (await _dbVilla.GetAsync(u => u.Id == updateDTO.VillaID) == null)
                 {
-                    ModelState.AddModelError("CustomError", "Villa ID does not exist!");
+                    ModelState.AddModelError("ErrorMessages", "Villa ID does not exist!");
                     return BadRequest(ModelState);
                 }
                 VillaNumber model = _mapper.Map<VillaNumber>(updateDTO);
@@ -179,7 +179,7 @@ namespace MagicVilla_VillaApi.Controllers
             catch (Exception ex) 
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessage = new List<string> { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             return _response; // Return the response with error details
         }
