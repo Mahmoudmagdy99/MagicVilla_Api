@@ -55,6 +55,7 @@ builder.Services.AddSwaggerGen(options => {
         In = ParameterLocation.Header,
         Scheme = "Bearer"
     });
+
     options.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
         {
