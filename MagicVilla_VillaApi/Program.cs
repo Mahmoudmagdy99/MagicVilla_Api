@@ -45,6 +45,7 @@ builder.Services.AddAuthentication(x =>
     });
 
 builder.Services.AddSwaggerGen(options => {
+
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description =

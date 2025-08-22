@@ -33,6 +33,8 @@ namespace MagicVilla_VillaApi.Repository
         {
             var user = _db.LocalUsers.FirstOrDefault(u => u.UserName.ToLower() ==loginRequestDTO.UserName.ToLower() 
             && u.Password == loginRequestDTO.Password);
+
+            // If user is not found, return empty token and null user 
             if (user == null)
             {
                 return new LoginResponseDTO
@@ -41,12 +43,14 @@ namespace MagicVilla_VillaApi.Repository
                     User = null
                 };
             }
-            // Generate JWT token
 
+            //If user is found, Generate JWT token
+
+            // Create a token handler and define the key
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(secretKey);
 
-            // Create the token descriptor
+            // Define the token descriptor with claims, expiration, and signing credentials
             var tokenDescriptor = new SecurityTokenDescriptor 
             { 
                 Subject = new ClaimsIdentity(new Claim[]
@@ -58,8 +62,13 @@ namespace MagicVilla_VillaApi.Repository
                 SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
+            // Validate the token
+
             // Create the token
             var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            // Serialize the token to a string
+            // Create the response DTO with the token and user information
             LoginResponseDTO loginResponseDTO = new LoginResponseDTO()
             {
                 Token = tokenHandler.WriteToken(token),
