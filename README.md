@@ -32,7 +32,7 @@ A **RESTful Web API** built with **ASP.NET Core** for managing villa listings in
 ---
 
 ## 📂 Project Structure
-
+```plaintext
 MagicVilla_API/
 ├── Controllers/                # API controllers (Villas, VillaNumbers, Users, etc.)
 │   ├── v1/                     # API Version 1 controllers
