@@ -33,11 +33,30 @@ A **RESTful Web API** built with **ASP.NET Core** for managing villa listings in
 
 ## 📂 Project Structure
 
-```plaintext
 MagicVilla_API/
-├── MagicVilla_VillaAPI      # Main Web API project
-│   ├── Controllers          # API controllers (v1, v2)
-│   ├── Models               # DTOs and domain models
-│   ├── Data                 # DbContext and seeding
-│   ├── Repository           # Repository pattern implementation
-│   └── Mappings             # AutoMapper profiles
+├── Controllers/                # API controllers (Villas, VillaNumbers, Users, etc.)
+│   ├── v1/                     # API Version 1 controllers
+│   └── v2/                     # API Version 2 controllers
+│
+├── Data/                       # Database context and seeding
+│   └── ApplicationDbContext.cs
+│
+├── Migrations/                 # EF Core migrations for database schema
+│
+├── Models/                     # Domain models
+│   ├── DTOs/                   # Data Transfer Objects
+│   ├── Identity/               # ASP.NET Core Identity models
+│   └── Villa.cs
+│
+├── Repository/                 # Repository and Unit of Work
+│   ├── IRepository.cs
+│   ├── IVillaRepository.cs
+│   ├── Repository.cs
+│   ├── VillaRepository.cs
+│   └── UnitOfWork.cs
+│
+├── MappingConfig.cs            # AutoMapper configuration
+├── Program.cs                  # Application entry point
+├── appsettings.json            # Configuration (DB connection, JWT, etc.)
+└── MagicVilla_API.csproj       # Project file
+
