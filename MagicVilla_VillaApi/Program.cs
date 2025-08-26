@@ -1,9 +1,11 @@
-
 using MagicVilla_VillaApi;
 using MagicVilla_VillaApi.Data;
+using MagicVilla_VillaApi.Models;
 using MagicVilla_VillaApi.Repository;
 using MagicVilla_VillaApi.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -17,12 +19,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
 });
-builder.Services.AddScoped<IVillaRepository,VillaRepository>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().
+    AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddResponseCaching();
+builder.Services.AddScoped<IVillaRepository, VillaRepository>();
 builder.Services.AddScoped<IVillaNumberRepository, VillaNumberRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 builder.Services.AddControllers(option => {
     //option.ReturnHttpNotAcceptable = true;
+    option.CacheProfiles.Add("Default30", 
+        new CacheProfile()
+        {
+            Duration = 30
+        });
 }).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
 
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");

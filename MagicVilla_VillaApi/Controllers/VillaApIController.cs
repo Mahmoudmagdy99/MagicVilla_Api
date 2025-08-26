@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text.Json;
 using AutoMapper;
 using MagicVilla_VillaApi.Data;
 using MagicVilla_VillaApi.Models;
@@ -23,7 +24,7 @@ namespace MagicVilla_VillaApi.Controllers
         {
             _dbVilla = dbVilla;
             _mapper= mapper;
-            this._response = new APIResponse();
+            _response = new APIResponse();
         }
 
         // =============> GET: api/VillaApI
@@ -32,11 +33,27 @@ namespace MagicVilla_VillaApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<APIResponse>> GetVillas()
+        [ResponseCache(CacheProfileName = "Default30")]
+        public async Task<ActionResult<APIResponse>> GetVillas([FromQuery(Name = "filterOccupancy")] int? occupancy,
+            [FromQuery] string? search, int pageSize = 0, int pageNumber = 1)
         {
             try 
             {
-                IEnumerable<Villa> villaList = await _dbVilla.GetAllAsync();
+                IEnumerable<Villa> villaList;
+                if (occupancy > 0)
+                {
+                    villaList = await _dbVilla.GetAllAsync(u => u.Occupancy == occupancy, pageSize:pageSize , pageNumber:pageNumber);
+                }
+                else
+                {
+                    villaList = await _dbVilla.GetAllAsync(pageSize: pageSize, pageNumber: pageNumber);
+                }
+                if (!string.IsNullOrEmpty(search))
+                {
+                    villaList = villaList.Where(u=> u.Name.ToLower().Contains(search));
+                }
+                Pagination pagination = new() { PageNumber = pageNumber, PageSize = pageSize };
+                Response.Headers.Add("X-Pagination",JsonSerializer.Serialize(pagination));
                 _response.Result = _mapper.Map<List<VillaDTO>>(villaList);
                 _response.StatusCode = HttpStatusCode.OK;
                 return Ok(_response);

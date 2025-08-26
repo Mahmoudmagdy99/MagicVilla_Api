@@ -26,12 +26,13 @@ namespace MagicVilla_VillaApi.Controllers
             _dbVillaNumber = dbVillaNumber;
             _dbVilla = dbVilla;
             _mapper = mapper;
-            this._response = new APIResponse();
+            _response = new APIResponse();
         }
 
         // =============> GET: api/VillaApI
 
         [HttpGet]
+        //[MapToApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<APIResponse>> GetVillaNumbers()
         {
@@ -49,7 +50,7 @@ namespace MagicVilla_VillaApi.Controllers
             }
             return _response; // Return the response with error details
         }
-
+        
         //=============> GET: api/VillaApI/Id
 
         [HttpGet("{id:int}",Name = "GetVillaNumber")]
