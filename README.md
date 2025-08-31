@@ -32,24 +32,41 @@ A **RESTful Web API** built with **ASP.NET Core** for managing villa listings in
 ---
 
 ## 📂 Project Structure
-➡️ overview
+🏗️ Solution: MagicVilla
 
-Solution: MagicVilla (contains 3 projects)
+The solution contains 3 projects, each with a specific role:
 
-MagicVilla_VillaAPI → This is the ASP.NET Core Web API project. It exposes endpoints (like /api/villa) for CRUD operations.
+MagicVilla_VillaAPI
 
-MagicVilla_Web → This is the ASP.NET Core MVC (or Razor Pages) web project, which consumes the API. It acts as the frontend of the app, calling the API and displaying data in views.
+ASP.NET Core Web API project.
 
-MagicVilla_Utility → This is a shared class library, holding helpers (like SD.cs for constants, API paths, enums, etc.) that are used by both the API and the Web project.
+Exposes REST endpoints (e.g., /api/villa) for full CRUD operations.
 
-So, the flow of the solution is:
+MagicVilla_Web
 
-The API project (MagicVilla_VillaAPI) provides REST endpoints.
+ASP.NET Core MVC (Razor Pages) project.
 
-The Web project (MagicVilla_Web) consumes those endpoints and serves UI to users.
+Acts as the frontend, consuming the API and rendering data in user-friendly views.
 
-The Utility project (MagicVilla_Utility) contains shared constants/configs that both projects can reuse.
+MagicVilla_Utility
 
+Shared class library.
+
+Holds reusable helpers such as:
+
+SD.cs → constants & API paths
+
+enums
+
+other utility classes
+
+🔄 Solution Flow
+
+API Layer → MagicVilla_VillaAPI provides RESTful endpoints.
+
+UI Layer → MagicVilla_Web consumes these endpoints and serves the UI.
+
+Shared Layer → MagicVilla_Utility centralizes constants and configs used across both API & Web.
 ➡️ structure
 ```plaintext
 MagicVilla_API/
