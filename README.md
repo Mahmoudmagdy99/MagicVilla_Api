@@ -60,7 +60,9 @@ enums
 
 other utility classes
 
-🔄 Solution Flow
+---
+
+## 🔄 Project Flow
 
 API Layer → MagicVilla_VillaAPI provides RESTful endpoints.
 
