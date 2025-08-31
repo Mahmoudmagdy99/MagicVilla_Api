@@ -36,7 +36,7 @@ A **RESTful Web API** built with **ASP.NET Core** for managing villa listings in
 
 The solution contains 3 projects, each with a specific role:
 
-MagicVilla_VillaAPI
+1- MagicVilla_VillaAPI
 
 ASP.NET Core Web API project.
 
@@ -44,11 +44,11 @@ Exposes REST endpoints (e.g., /api/villa) for full CRUD operations.
 
 MagicVilla_Web
 
-ASP.NET Core MVC (Razor Pages) project.
+2- ASP.NET Core MVC (Razor Pages) project.
 
 Acts as the frontend, consuming the API and rendering data in user-friendly views.
 
-MagicVilla_Utility
+3- MagicVilla_Utility
 
 Shared class library.
 
@@ -69,7 +69,9 @@ API Layer → MagicVilla_VillaAPI provides RESTful endpoints.
 UI Layer → MagicVilla_Web consumes these endpoints and serves the UI.
 
 Shared Layer → MagicVilla_Utility centralizes constants and configs used across both API & Web.
+
 ➡️ structure
+
 ```plaintext
 MagicVilla_API/
 ├── Controllers/                # API controllers (Villas, VillaNumbers, Users, etc.)
