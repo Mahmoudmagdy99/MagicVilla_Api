@@ -32,9 +32,9 @@ A **RESTful Web API** built with **ASP.NET Core** for managing villa listings in
 ---
 
 ## 📂 Project Structure
-overview
+➡️ overview
 
-➡️ Solution: MagicVilla (contains 3 projects)
+Solution: MagicVilla (contains 3 projects)
 
 MagicVilla_VillaAPI → This is the ASP.NET Core Web API project. It exposes endpoints (like /api/villa) for CRUD operations.
 
@@ -50,6 +50,7 @@ The Web project (MagicVilla_Web) consumes those endpoints and serves UI to users
 
 The Utility project (MagicVilla_Utility) contains shared constants/configs that both projects can reuse.
 
+➡️ structure
 ```plaintext
 MagicVilla_API/
 ├── Controllers/                # API controllers (Villas, VillaNumbers, Users, etc.)
