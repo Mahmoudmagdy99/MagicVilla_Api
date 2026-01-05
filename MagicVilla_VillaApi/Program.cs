@@ -97,9 +97,11 @@ var app = builder.Build();
 //    app.UseSwagger();
 //    app.UseSwaggerUI();
 //}
+
+//for production
 app.UseSwagger();
 app.UseSwaggerUI(options => {
-    options.SwaggerEndpoint("/swagger/swagger.json", "Magic_VillaV1");
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Magic_VillaV1");
     options.RoutePrefix = String.Empty;
 });
 
